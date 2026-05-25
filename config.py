@@ -25,10 +25,6 @@ chrome_options.add_argument('--remote-debugging-port=9222')
 
 chrome_options.add_argument('--start-maximized')
 
-
-LOGIN = ['inna-sugakova@yandex.ru', 'max.step26@gmail.com']
-PASSWORD = 'Gelendjik777'
-
 test_url = ''
 url = 'https://doska-kubani.ru/'
 
