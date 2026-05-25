@@ -7,11 +7,11 @@ from test_run import test_thread
 logger = getLogger(__name__)
 app = Flask(__name__)
 
-# 1. Настраиваем конфиг для планировщика (если нужно)
+# Настраиваем конфиг для планировщика
 app.config['SCHEDULER_API_ENABLED'] = False 
 
-# 2. Создаем экземпляр планировщика.
-#    На этом этапе НЕ инициализируем его через app.
+#  Создаем экземпляр планировщика.
+#  На этом этапе НЕ инициализируем его через app.
 scheduler = APScheduler()
 
 @app.route("/")
@@ -19,7 +19,7 @@ def index():
     return render_template("page.html")
 
 
-# 3. Определяем задачу.
+# Определяем задачу.
 def cron_job_function():
     """Синхронная задача для планировщика."""
     try:
@@ -29,14 +29,14 @@ def cron_job_function():
         logger.error(f"Cron job failed: {e}")
 
 
-# Используем "Фабрику приложений" или просто логику запуска.
+# Используем логику запуска.
 # Инициализируем планировщик ПЕРЕД запуском приложения/сервера
 scheduler.init_app(app)
 
-# Добавляем задачу через API планировщика, а не через декоратор
+# Добавляем задачу через API планировщика
 scheduler.add_job(
     id='main_cron_job',
-    func=cron_job_function, # Передаем саму функцию, БЕЗ вызова ()
+    func=cron_job_function, # Передаем саму функцию
     trigger='interval',
     hours=3,
     max_instances=1
